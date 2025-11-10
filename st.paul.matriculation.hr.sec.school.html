@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>St. Paul Matric School - Mangalampettai</title>
+  <style>
+    /* ---------- base ---------- */
+    :root{
+      --blue-900:#003f7f;
+      --blue-700:#005bbb;
+      --blue-500:#007fff;
+      --bg:#f6fbff;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --accent: #9fd6ff;
+      --muted:#6b7280;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(circle at 10% 10%, #eaf6ff 0%, var(--bg) 50%), #f6fbff;
+      color:#12202b;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+    }
+    a{color:inherit}
+
+    /* ---------- header + nav (horizontal big buttons) ---------- */
+    header{
+      background: linear-gradient(90deg,var(--blue-700),var(--blue-500));
+      color:#fff;
+      padding:28px 20px;
+      position:relative;
+      overflow:hidden;
+    }
+    .header-inner{
+      max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;justify-content:space-between;
+    }
+    .brand{
+      display:flex;align-items:center;gap:14px;
+    }
+    .brand img{width:64px;height:64px;border-radius:12px;background:var(--glass);padding:6px;box-shadow:0 6px 20px rgba(0,0,0,0.18)}
+    .brand h1{font-size:20px;letter-spacing:1px;margin:0;text-transform:uppercase}
+    .brand p{margin:0;font-size:12px;opacity:.95}
+
+    nav.topnav{
+      display:flex;gap:10px;align-items:center;
+      flex-wrap:wrap;
+    }
+
+    /* large horizontal "button" nav items */
+    .nav-btn{
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color:white;
+      padding:12px 20px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:15px;
+      border: 1px solid rgba(255,255,255,0.12);
+      cursor:pointer;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s;
+      display:inline-flex;gap:10px;align-items:center;
+      box-shadow: 0 6px 18px rgba(0,91,187,0.18);
+    }
+    .nav-btn .dot{width:10px;height:10px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px rgba(159,214,255,0.6)}
+    .nav-btn:hover{transform:translateY(-5px) scale(1.02); box-shadow:0 14px 30px rgba(0,91,187,0.22)}
+    .nav-btn.active{background:linear-gradient(90deg,#ffffff20,#ffffff10); box-shadow:0 18px 40px rgba(0,91,187,0.26); color:#fff;}
+
+    /* sticky nav change on scroll */
+    .sticky{
+      position:sticky;top:0;z-index:999;
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid rgba(0,0,0,0.04);
+    }
+
+    /* ---------- hero ---------- */
+    .hero{
+      max-width:1200px;margin: -30px auto 30px;padding:36px;background: linear-gradient(180deg,#ffffff,#f4fbff);
+      border-radius:18px;box-shadow:0 20px 60px rgba(0,91,187,0.08); display:flex;gap:30px;align-items:center;
+      padding-left:46px;padding-right:46px;
+    }
+    .hero-left{flex:1; min-width:280px}
+    .hero-right{flex:1; display:flex;justify-content:center}
+    .logo-large{width:160px;height:160px;border-radius:20px;display:inline-flex;align-items:center;justify-content:center;
+      background:linear-gradient(180deg,var(--blue-500),var(--blue-700)); box-shadow:0 20px 40px rgba(0,91,187,0.18); color:white;font-size:28px;font-weight:800}
+    .kicker{display:inline-block;background:rgba(0,91,187,0.08);color:var(--blue-900);padding:6px 12px;border-radius:999px;font-weight:600;margin-bottom:12px}
+    .hero h2{font-size:34px;margin:6px 0 12px;color:var(--blue-900)}
+    .hero p.lead{color:var(--muted);line-height:1.6;font-size:16px;max-width:720px}
+    .cta-row{margin-top:18px;display:flex;gap:14px;flex-wrap:wrap}
+    .cta-large{
+      background:var(--blue-700);color:white;padding:14px 22px;border-radius:14px;font-weight:700;border:none;cursor:pointer;
+      box-shadow:0 10px 30px rgba(0,91,187,0.18);transition:transform .28s,box-shadow .28s;
+    }
+    .cta-large:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,91,187,0.28)}
+
+    /* tiny typed text shimmer */
+    .typed{display:inline-block;color:var(--blue-500);font-weight:700;margin-left:8px}
+
+    /* ---------- sections (very long) ---------- */
+    main{max-width:1200px;margin:30px auto;padding:0 20px}
+    section.block{margin:40px 0;padding:40px;border-radius:16px;background:var(--card);box-shadow:0 12px 30px rgba(20,40,60,0.04)}
+    section.block h3{color:var(--blue-700);margin-bottom:14px}
+    .muted{color:var(--muted)}
+    .two-col{display:flex;gap:24px;align-items:flex-start}
+    .col{flex:1}
+
+    /* animated card row */
+    .cards{display:flex;gap:18px;flex-wrap:wrap}
+    .card{flex:1;min-width:220px;background:linear-gradient(180deg,#fff,#f6fbff);padding:18px;border-radius:12px;border:1px solid rgba(0,91,187,0.06);
+      transition: transform .4s, box-shadow .4s;box-shadow:0 10px 30px rgba(0,91,187,0.04)}
+    .card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,91,187,0.08)}
+    .card h4{margin-bottom:8px;color:var(--blue-900)}
+
+    /* timeline */
+    .timeline{position:relative;padding-left:28px}
+    .timeline::before{content:"";position:absolute;left:10px;top:8px;bottom:8px;width:3px;background:linear-gradient(180deg,var(--accent),var(--blue-700));border-radius:4px}
+    .t-item{position:relative;padding:14px 0;margin-bottom:6px}
+    .t-dot{position:absolute;left:-1px;top:8px;width:18px;height:18px;border-radius:50%;background:var(--blue-700);box-shadow:0 6px 14px rgba(0,91,187,0.2)}
+    .t-item p{margin:6px 0;color:var(--muted)}
+
+    /* stats counters */
+    .stats{display:flex;gap:18px;flex-wrap:wrap;justify-content:space-between}
+    .stat{flex:1;min-width:160px;background:linear-gradient(180deg,#f7fdff,#ffffff);padding:20px;border-radius:12px;text-align:center}
+    .stat h2{font-size:28px;color:var(--blue-700);margin-bottom:8px}
+
+    /* accordion FAQ */
+    .faq .q{background:linear-gradient(180deg,#f1fbff,#ffffff);padding:14px;border-radius:10px;cursor:pointer;border:1px solid rgba(0,91,187,0.06);display:flex;justify-content:space-between;align-items:center}
+    .faq .a{padding:12px 14px;color:var(--muted);display:none}
+
+    /* gallery grid */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+    .gallery-grid img{width:100%;height:160px;object-fit:cover;border-radius:10px;cursor:pointer;transition:transform .4s,box-shadow .4s}
+    .gallery-grid img:hover{transform:scale(1.04);box-shadow:0 18px 40px rgba(0,91,187,0.12)}
+
+    /* modal */
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:1200;opacity:0;pointer-events:none;transition:opacity .25s}
+    .modal.show{opacity:1;pointer-events:auto}
+    .modal .imgwrap{max-width:90%;max-height:90%}
+    .modal img{width:100%;height:auto;border-radius:10px;display:block}
+
+    /* floating parallax shapes */
+    .shape{position:absolute;pointer-events:none;filter:blur(18px);opacity:.12}
+    .shape.s1{width:260px;height:260px;border-radius:20px;background:linear-gradient(90deg,#9fd6ff,#007fff);left:-40px;top:70px}
+    .shape.s2{width:160px;height:160px;border-radius:50%;background:linear-gradient(90deg,#a6e0ff,#005bbb);right:-50px;top:200px}
+    .shape.s3{width:120px;height:120px;border-radius:24px;background:linear-gradient(90deg,#cfefff,#007fff);left:50px;bottom:120px}
+
+    /* back to top */
+    .to-top{position:fixed;right:18px;bottom:18px;background:var(--blue-700);color:white;padding:12px;border-radius:12px;box-shadow:0 14px 40px rgba(0,91,187,0.2);cursor:pointer;display:none;z-index:999}
+    .to-top.show{display:block}
+
+    /* responsiveness */
+    @media (max-width:900px){
+      .two-col{flex-direction:column}
+      .hero{flex-direction:column;padding:26px}
+      .brand h1{font-size:16px}
+      .nav-btn{padding:10px 14px;font-size:14px}
+    }
+    @media (max-width:520px){
+      .header-inner{flex-direction:column;gap:14px}
+      .brand img{width:54px;height:54px}
+      .logo-large{width:120px;height:120px}
+    }
+
+    /* small entrance helpers */
+    .reveal{opacity:0;transform:translateY(24px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
+    .reveal.show{opacity:1;transform:none}
+    .slide-left{transform:translateX(-30px);opacity:0;transition:all .9s}
+    .slide-left.show{transform:none;opacity:1}
+    .fade{opacity:0;transition:opacity .9s}
+    .fade.show{opacity:1}
+  </style>
+</head>
+<body>
+
+  <!-- floating shapes -->
+  <div class="shape s1"></div>
+  <div class="shape s2"></div>
+  <div class="shape s3"></div>
+
+  <!-- header + nav -->
+  <header id="top">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="logo" />
+        <div>
+          <h1>St. Paul Matric School</h1>
+          <p> Mangalampettai — Foundation for bright futures</p>
+        </div>
+      </div>
+
+      <nav class="topnav sticky" id="topnav">
+        <button class="nav-btn active" data-target="home"><span class="dot"></span> Home</button>
+        <button class="nav-btn" data-target="about"><span class="dot"></span> About</button>
+        <button class="nav-btn" data-target="academics"><span class="dot"></span> Academics</button>
+        <button class="nav-btn" data-target="programs"><span class="dot"></span> Programs</button>
+        <button class="nav-btn" data-target="timeline"><span class="dot"></span> Timeline</button>
+        <button class="nav-btn" data-target="gallery"><span class="dot"></span> Gallery</button>
+        <button class="nav-btn" data-target="faq"><span class="dot"></span> FAQ</button>
+        <button class="nav-btn" data-target="contact"><span class="dot"></span> Contact</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <main>
+    <section id="home" class="hero reveal">
+      <div class="hero-left">
+        <div class="kicker">Since 19XX • Caring • Creative</div>
+        <h2>Welcome to <span style="white-space:nowrap">St. Paul Matric School</span></h2>
+        <p class="lead">We build confident students with strong foundations in academics, arts, and sports. Join a friendly environment where every child is guided with care. <span class="typed" id="typed"></span></p>
+
+        <div class="cta-row">
+          <button class="cta-large" onclick="scrollToId('about')">Learn About Us</button>
+          <button class="cta-large" onclick="scrollToId('contact')">Contact Admissions</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="logo-large" aria-hidden>SP</div>
+      </div>
+    </section>
+
+    <!-- long about -->
+    <section id="about" class="block reveal">
+      <h3>About St. Paul Matric School</h3>
+      <div class="two-col">
+        <div class="col slide-left">
+          <p class="muted">St. Paul Matric School in Mangalampettai is dedicated to nurturing young minds through a balanced blend of academic excellence and moral education. Our experienced teachers ensure each child receives personalised attention and opportunities to explore creativity.</p>
+
+          <div style="height:18px"></div>
+
+          <div class="cards">
+            <div class="card">
+              <h4>Child-Centered Learning</h4>
+              <p class="muted">Activity-based lessons, safe classrooms and caring mentors.</p>
+            </div>
+            <div class="card">
+              <h4>Strong Values</h4>
+              <p class="muted">We encourage respect, responsibility, and teamwork.</p>
+            </div>
+            <div class="card">
+              <h4>Community</h4>
+              <p class="muted">Regular parent-teacher meets and local community programs.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col fade">
+          <div style="height:6px"></div>
+          <img src="https://images.unsplash.com/photo-1600880292089-90e6a0b472c8?auto=format&fit=crop&w=900&q=60" alt="students" style="width:100%;border-radius:12px;box-shadow:0 18px 40px rgba(0,91,187,0.06)" />
+        </div>
+      </div>
+    </section>
+
+    <!-- academics -->
+    <section id="academics" class="block reveal">
+      <h3>Academics & Learning</h3>
+      <p class="muted">Our curriculum follows the Matriculation board and is enhanced with practical labs, projects, quizzes, and periodic assessments. We focus on both scholastic skills and co-curricular development.</p>
+
+      <div style="height:18px"></div>
+
+      <div class="cards">
+        <div class="card">
+          <h4>Classrooms</h4><p class="muted">Smart boards, neat seating, and activity corners.</p>
+        </div>
+        <div class="card">
+          <h4>Science Labs</h4><p class="muted">Well-equipped labs for hands-on experiments and safety training.</p>
+        </div>
+        <div class="card">
+          <h4>Computer Lab</h4><p class="muted">Practical coding, digital literacy and supervised access.</p>
+        </div>
+        <div class="card">
+          <h4>Library</h4><p class="muted">A cozy library with age-wise reading sections and study spaces.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- programs -->
+    <section id="programs" class="block reveal">
+      <h3>Programs & Activities</h3>
+      <p class="muted">We believe learning goes beyond books. Our programs include:</p>
+      <ul style="color:var(--muted);line-height:1.7;max-width:900px;margin:10px auto 0;text-align:left">
+        <li>• Sports & physical education (annual sports day, coaching)</li>
+        <li>• Cultural activities (dance, music, drama)</li>
+        <li>• Science fairs & project exhibitions</li>
+        <li>• Clubs: Eco-club, Maths club, Art club</li>
+      </ul>
+
+      <div style="height:18px"></div>
+
+      <div class="stats">
+        <div class="stat reveal">
+          <h2 id="c1">0</h2>
+          <div class="muted">Students</div>
+        </div>
+        <div class="stat reveal">
+          <h2 id="c2">0</h2>
+          <div class="muted">Teachers</div>
+        </div>
+        <div class="stat reveal">
+          <h2 id="c3">0</h2>
+          <div class="muted">Years of Service</div>
+        </div>
+        <div class="stat reveal">
+          <h2 id="c4">0</h2>
+          <div class="muted">Awards</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- facilities much longer -->
+    <section id="facilities" class="block reveal">
+      <h3>Facilities & Campus</h3>
+      <div class="two-col">
+        <div class="col slide-left">
+          <p class="muted">The campus is designed with safety and learning in mind: clean drinking water, secure perimeter, CCTV monitored areas, dedicated medical room, and hygienic washrooms. Outdoor sports ground and an assembly stage for cultural events.</p>
+
+          <div style="height:18px"></div>
+
+          <div class="cards">
+            <div class="card">
+              <h4>Safe Campus</h4><p class="muted">Secure gates, first-aid, and staff supervision.</p>
+            </div>
+            <div class="card">
+              <h4>Transport</h4><p class="muted">School buses with trained drivers and safety protocols.</p>
+            </div>
+            <div class="card">
+              <h4>Canteen</h4><p class="muted">Hygienic food options and periodic audits.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col fade">
+          <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=900&q=60" alt="campus" style="width:100%;border-radius:12px;box-shadow:0 18px 40px rgba(0,91,187,0.06)" />
+        </div>
+      </div>
+    </section>
+
+    <!-- timeline (long) -->
+    <section id="timeline" class="block reveal">
+      <h3>Our Journey — Timeline</h3>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <strong>2005</strong>
+          <p>School founded with a small batch of 50 students and 4 teachers.</p>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <strong>2010</strong>
+          <p>First Science Fair and expansion of classrooms.</p>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <strong>2016</strong>
+          <p>Introduced smart boards and modern learning tools.</p>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <strong>2022</strong>
+          <p>New sports ground, library renovation and digital learning program.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- long gallery (interactive modal) -->
+    <section id="gallery" class="block reveal">
+      <h3>Gallery — Moments & Memories</h3>
+      <p class="muted">Click any photo to view larger. (Use keyboard arrow keys in modal)</p>
+
+      <div style="height:12px"></div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <img data-src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=60" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=40" alt="gallery1" />
+        <img data-src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=900&q=60" src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=600&q=40" alt="gallery2" />
+        <img data-src="https://images.unsplash.com/photo-1600880292089-90e6a0b472c8?auto=format&fit=crop&w=900&q=60" src="https://images.unsplash.com/photo-1600880292089-90e6a0b472c8?auto=format&fit=crop&w=600&q=40" alt="gallery3" />
+        <img data-src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=900&q=60" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=600&q=40" alt="gallery4" />
+        <img data-src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=900&q=60" src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=600&q=40" alt="gallery5" />
+        <img data-src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=900&q=60" src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=600&q=40" alt="gallery6" />
+      </div>
+    </section>
+
+    <!-- FAQ (accordion) -->
+    <section id="faq" class="block reveal">
+      <h3>FAQ — Common Questions</h3>
+      <div class="faq" style="max-width:900px;margin:12px auto;display:grid;gap:10px">
+        <div>
+          <div class="q">What are the school timings?<span>⯈</span></div>
+          <div class="a">School runs from 8:30 AM to 3:00 PM (Monday to Friday). Separate timings for pre-primary are followed.</div>
+        </div>
+        <div>
+          <div class="q">How to apply for admission?<span>⯈</span></div>
+          <div class="a">Visit the school office or call the admissions number. Fill the application form and submit required documents.</div>
+        </div>
+        <div>
+          <div class="q">Is transport available?<span>⯈</span></div>
+          <div class="a">Yes, we provide bus transport with safe routes and trained staff.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- contact long -->
+    <section id="contact" class="block reveal">
+      <h3>Contact & Visit</h3>
+      <div class="two-col">
+        <div class="col">
+          <p class="muted">St. Paul Matric School — Mangalampettai<br>Phone: +91 98765 43210<br>Email: stpaulschool@gmail.com</p>
+          <div style="height:12px"></div>
+          <iframe title="map" src="https://www.google.com/maps?q=Mangalampettai&output=embed" style="width:100%;height:280px;border:0;border-radius:10px"></iframe>
+        </div>
+        <div class="col">
+          <h4>Visit / Admissions</h4>
+          <p class="muted">Office hours: 9:00 AM – 4:30 PM (Mon–Fri). For admission forms, you can download the form from the office or request via email.</p>
+
+          <div style="height:12px"></div>
+
+         
+         
+         
+         
+         
+         
+         
+        
+        
+      </div>
+    </section>
+
+    <!-- long footer -->
+    <section class="block reveal" style="text-align:center">
+      <h3>More From St. Paul</h3>
+      <p class="muted">This page is only a summary. We run regular workshops, teacher training and community drives. Follow us on school noticeboard for updates.</p>
+      <div style="height:18px"></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="nav-btn" style="background:#fff;color:var(--blue-700;border:1px solid rgba(0,91,187,0.06)" onclick="scrollToId('home')">Back to Top</a>
+        <a class="nav-btn" style="background:linear-gradient(90deg,var(--blue-700),var(--blue-500))" href="#contact">Contact Admissions</a>
+      </div>
+    </section>
+  </main>
+
+  <footer style="text-align:center;padding:22px 14px;background:linear-gradient(90deg,var(--blue-700),var(--blue-500));color:white">
+    © 2025 St. Paul Matric School - Mangalampettai • Designed with heart by Harshan
+  </footer>
+
+  <!-- gallery modal -->
+  <div id="modal" class="modal" tabindex="-1">
+    <div class="imgwrap"><img id="modalImg" src="" alt="big" /></div>
+  </div>
+
+  <!-- back to top -->
+  <button id="toTop" class="to-top" title="Back to top">↑</button>
+
+  <script>
+    /* ---------- helpers ---------- */
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const sections = [...document.querySelectorAll('main section')];
+    const topnav = document.getElementById('topnav');
+
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // nav btn click
+    navBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=> {
+        navBtns.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const t = btn.dataset.target;
+        if(t) scrollToId(t);
+      });
+    });
+
+    // highlight nav on scroll (intersection observer)
+    const obsOptions = {root:null,rootMargin:'-10% 0px -50% 0px',threshold:0};
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting){
+          const id = ent.target.id;
+          navBtns.forEach(b=>{
+            b.classList.toggle('active', b.dataset.target === id);
+          });
+        }
+      });
+    }, obsOptions);
+    sections.forEach(s => observer.observe(s));
+
+    /* ---------- reveal animations ---------- */
+    const revealEls = document.querySelectorAll('.reveal, .slide-left, .fade');
+    const revealObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); }
+      });
+    }, {threshold:0.15});
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* ---------- typed text (mini) ---------- */
+    const typed = document.getElementById('typed');
+    const words = ["Kindness.", "Creativity.", "Curiosity.", "Confidence."];
+    let ti = 0, wi = 0, forward = true;
+    (function typeLoop(){
+      const word = words[wi];
+      typed.textContent = word.slice(0, ti);
+      if(forward){ ti++; if(ti>word.length){forward=false; setTimeout(typeLoop,900); return;} }
+      else{ ti--; if(ti<0){ forward=true; wi=(wi+1)%words.length; setTimeout(typeLoop,300); return;} }
+      setTimeout(typeLoop,90);
+    })();
+
+    /* ---------- counters ---------- */
+    function animateCounter(id, end, duration=1400){
+      const el = document.getElementById(id);
+      if(!el) return;
+      let start = 0, startTime = null;
+      function step(timestamp){
+        if(!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime)/duration, 1);
+        el.textContent = Math.floor(progress * (end - start) + start);
+        if(progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    // when programs section visible, start counters
+    const progSection = document.getElementById('programs');
+    const countersStarted = {v:false};
+    const progObs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting && !countersStarted.v){
+          countersStarted.v = true;
+          animateCounter('c1', 1000); // students
+          animateCounter('c2', 60);  // teachers
+          animateCounter('c3', 25);  // years
+          animateCounter('c4', 50);  // awardsth
+        }
+      });
+    }, {threshold:0.3});
+    if(progSection) progObs.observe(progSection);
+
+    /* ---------- FAQ accordion ---------- */
+    document.querySelectorAll('.faq .q').forEach(q=>{
+      q.addEventListener('click', ()=>{
+        const a = q.nextElementSibling;
+        const open = a.style.display === 'block';
+        document.querySelectorAll('.faq .a').forEach(x=>x.style.display='none');
+        a.style.display = open ? 'none' : 'block';
+      });
+    });
+
+    /* ---------- gallery modal & keyboard nav ---------- */
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const galleryImgs = document.querySelectorAll('.gallery-grid img');
+    let galleryIndex = 0;
+
+    const srcs = Array.from(galleryImgs).map(i=>i.dataset.src || i.src);
+    galleryImgs.forEach((img,i)=> img.addEventListener('click', ()=>{
+      galleryIndex = i; openModal(srcs[galleryIndex]);
+    }));
+
+    function openModal(src){
+      modalImg.src = src;
+      modal.classList.add('show');
+      modal.focus();
+    }
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) modal.classList.remove('show');
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(!modal.classList.contains('show')) return;
+      if(e.key === 'ArrowRight'){ galleryIndex = (galleryIndex+1)%srcs.length; modalImg.src = srcs[galleryIndex]; }
+      if(e.key === 'ArrowLeft'){ galleryIndex = (galleryIndex-1+srcs.length)%srcs.length; modalImg.src = srcs[galleryIndex]; }
+      if(e.key === 'Escape'){ modal.classList.remove('show'); }
+    });
+
+    /* lazy load images in gallery for performance */
+    const gObserver = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          const img = en.target;
+          if(img.dataset.src){ img.src = img.dataset.src; img.removeAttribute('data-src'); }
+          gObserver.unobserve(img);
+        }
+      });
+    }, {rootMargin:'200px 0px'});
+    document.querySelectorAll('.gallery-grid img').forEach(i=>gObserver.observe(i));
+
+    /* ---------- parallax subtle movement of shapes ---------- */
+    const shapes = document.querySelectorAll('.shape');
+    window.addEventListener('mousemove',(e)=>{
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      shapes.forEach((s,idx)=>{
+        const mul = (idx+1)*8;
+        s.style.transform = `translate(${(x-0.5)*mul}px, ${(y-0.5)*mul}px)`;
+      });
+    });
+
+    /* ---------- back to top ---------- */
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll',()=>{
+      if(window.scrollY > 600){ toTop.classList.add('show'); }
+      else { toTop.classList.remove('show'); }
+    });
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+   
+   
+   
+   
+   
+   
+
+    /* ---------- sticky nav color change after hero ---------- */
+    const hero = document.querySelector('.hero');
+    const topHeaderObserver = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(!en.isIntersecting){
+          topnav.style.background = 'rgba(255,255,255,0.96)';
+          topnav.style.backdropFilter = 'blur(8px)';
+          topnav.querySelectorAll('.nav-btn').forEach(b=> b.style.color = 'var(--blue-700)');
+        } else {
+          topnav.style.background = 'transparent';
+          topnav.style.backdropFilter = 'none';
+          topnav.querySelectorAll('.nav-btn').forEach(b=> b.style.color = '#fff');
+        }
+      });
+    }, {root:null,threshold:0.4});
+    if(hero) topHeaderObserver.observe(hero);
+
+    /* ---------- initial small entrance for nav buttons ---------- */
+    window.addEventListener('load', ()=>{
+      navBtns.forEach((b,i)=> setTimeout(()=> b.classList.add('show'), i*80));
+    });
+
+    /* ---------- ensure sections in nav when clicking brand (logo) ---------- */
+    document.querySelector('.brand').addEventListener('click', ()=> scrollToId('home'));
+  </script>
+</body>
+</html>
